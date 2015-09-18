@@ -5,12 +5,15 @@ class UsersController < ApplicationController
 
 
   def index
-		@users = User.all
+		@users = User.all.paginate(page: params[:page])
   end
 
-  #def index
-  #@users = User.paginate(page: params[:page])
-  #end
+  def search_index
+    #ViewのFormで取得したパラメータをモデルに渡す
+    @users = User.search(params[:search])
+  end
+
+  
   
    def destroy
     User.find(params[:id]).destroy
